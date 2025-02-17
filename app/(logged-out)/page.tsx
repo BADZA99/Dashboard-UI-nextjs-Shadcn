@@ -19,7 +19,7 @@ export default function LandingPage() {
         </Button>
         <small>Or</small>
         <Button variant={"outline"}>
-          <Link href={"/sign-up"}>sign up</Link>
+          <Link href={"/signup"}>sign up</Link>
         </Button>
       </div>
     </>
