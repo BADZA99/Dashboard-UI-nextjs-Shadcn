@@ -33,6 +33,7 @@ import {Calendar} from '@/components/ui/calendar'
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { format } from "date-fns";
 
 // form schema
 const formSchema = z
@@ -198,12 +199,12 @@ export default function SignupPage() {
                             variant="outline"
                             className="normal-case flex justify-between pr-1"
                           >
-                            <span>Pick a date</span>
+                            {!!field.value ? format(field.value,'PPP') : <span>Pick a date</span>}
                             <CalendarIcon className="w-5 h-5" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                     ...
+                     
 <PopoverContent align="start" className='w-auto p-0'>
   <Calendar
     mode="single"
@@ -218,7 +219,7 @@ export default function SignupPage() {
     captionLayout='dropdown-buttons'
   />
 </PopoverContent>
-...
+
                     </Popover>
                     <FormMessage />
                   </FormItem>
