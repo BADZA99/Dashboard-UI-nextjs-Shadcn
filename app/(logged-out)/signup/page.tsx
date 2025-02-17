@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select,
   SelectContent,
@@ -29,6 +29,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 // import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
 import { CalendarIcon, ChartBar } from "lucide-react";
+import {Calendar} from '@/components/ui/calendar'
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -84,6 +85,8 @@ export default function SignupPage() {
   });
 
   const accountType = form.watch("AccountType");
+  const dobFromDate= new Date();
+  dobFromDate.setFullYear(dobFromDate.getFullYear() - 18);
 
   const handleSubmit = () => {
     console.log("successss");
@@ -200,6 +203,22 @@ export default function SignupPage() {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
+                     ...
+<PopoverContent align="start" className='w-auto p-0'>
+  <Calendar
+    mode="single"
+    defaultMonth={field.value}
+    selected={field.value}
+    onSelect={field.onChange}
+    fixedWeeks // Affiche toujours 6 semaines dans le calendrier, même si le mois n'en a pas autant
+    weekStartsOn={1} // Définit le premier jour de la semaine (0 pour dimanche, 1 pour lundi, etc.)
+    fromDate={dobFromDate} // La date minimale sélectionnable dans le calendrier
+    toDate={new Date()} // La date maximale sélectionnable dans le calendrier
+    //disabled={}
+    captionLayout='dropdown-buttons'
+  />
+</PopoverContent>
+...
                     </Popover>
                     <FormMessage />
                   </FormItem>
