@@ -34,6 +34,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
+import { PasswordInput } from "@/components/passwordInput";
 
 // form schema
 const formSchema = z
@@ -45,6 +46,8 @@ const formSchema = z
     // tous les champs sont des srting par defaut on use coerce ici pour convertir employees en number
     nbemployees: z.coerce.number().optional(),
     //   refine permet de valider un champs en particulier sans utiliser les autres forme il prend 2 params une fonction call (si true on affiche le msg d'eereur sinon c valide) et l'autre arg est le msg erreur  a afficher
+    password: z.string().min(8),
+    confirmPassword: z.string().min(8),
     dob: z.date().refine((date) => {
       const today = new Date();
       const EightyearsAgo = new Date(
@@ -199,28 +202,67 @@ export default function SignupPage() {
                             variant="outline"
                             className="normal-case flex justify-between pr-1"
                           >
-                            {!!field.value ? format(field.value,'PPP') : <span>Pick a date</span>}
+                            {!!field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
                             <CalendarIcon className="w-5 h-5" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                     
-<PopoverContent align="start" className='w-auto p-0'>
-  <Calendar
-    mode="single"
-    defaultMonth={field.value}
-    selected={field.value}
-    onSelect={field.onChange}
-    fixedWeeks // Affiche toujours 6 semaines dans le calendrier, même si le mois n'en a pas autant
-    weekStartsOn={1} // Définit le premier jour de la semaine (0 pour dimanche, 1 pour lundi, etc.)
-    fromDate={dobFromDate} // La date minimale sélectionnable dans le calendrier
-    toDate={new Date()} // La date maximale sélectionnable dans le calendrier
-    //disabled={}
-    captionLayout='dropdown-buttons'
-  />
-</PopoverContent>
 
+                      <PopoverContent align="start" className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          defaultMonth={field.value}
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          fixedWeeks // Affiche toujours 6 semaines dans le calendrier, même si le mois n'en a pas autant
+                          weekStartsOn={1} // Définit le premier jour de la semaine (0 pour dimanche, 1 pour lundi, etc.)
+                          fromDate={dobFromDate} // La date minimale sélectionnable dans le calendrier
+                          toDate={new Date()} // La date maximale sélectionnable dans le calendrier
+                          //disabled={}
+                          captionLayout="dropdown-buttons"
+                        />
+                      </PopoverContent>
                     </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* password */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col pt-2">
+                    <FormLabel>password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        placeholder="....."
+                        type="password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* confirm password */}
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col pt-2">
+                    <FormLabel>confirm password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        placeholder="....."
+                        //  plus besoin de type password car c gere dans PasswordInput
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
