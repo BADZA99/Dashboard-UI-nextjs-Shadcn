@@ -10,6 +10,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   //   FormDescription,
   FormField,
   FormItem,
@@ -35,6 +36,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { format } from "date-fns";
 import { PasswordInput } from "@/components/passwordInput";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 
 // form schema
 const formSchema = z
@@ -48,6 +51,10 @@ const formSchema = z
     //   refine permet de valider un champs en particulier sans utiliser les autres forme il prend 2 params une fonction call (si true on affiche le msg d'eereur sinon c valide) et l'autre arg est le msg erreur  a afficher
     password: z.string().min(8),
     confirmPassword: z.string().min(8),
+    acceptTerms: z.boolean({
+      required_error: "you must accept the terms and conditions",
+    }).refine((checked) => checked, "you must accept the terms and conditions"),
+
     dob: z.date().refine((date) => {
       const today = new Date();
       const EightyearsAgo = new Date(
@@ -77,14 +84,18 @@ const formSchema = z
   });
 
 export default function SignupPage() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       AccountType: "personal",
       CompanyName: "",
-      nbemployees: 0,
+      // nbemployees: 0,
       dob: new Date(),
+      acceptTerms: false,
+      password: "",
+      confirmPassword: "",
     },
   });
 
@@ -92,8 +103,10 @@ export default function SignupPage() {
   const dobFromDate= new Date();
   dobFromDate.setFullYear(dobFromDate.getFullYear() - 18);
 
-  const handleSubmit = () => {
+  const handleSubmit = (data:z.infer<typeof formSchema>) => {
+    console.log(data);
     console.log("successss");
+    router.push("/dashboard");
   };
 
   return (
@@ -177,7 +190,7 @@ export default function SignupPage() {
                         <FormControl>
                           <Input
                             type="number"
-                            min={1}
+                            value={field.value ?? ""}
                             placeholder="number of employees"
                             {...field}
                           />
@@ -267,6 +280,32 @@ export default function SignupPage() {
                   </FormItem>
                 )}
               />
+              {/* accept terms */}
+              <FormField
+                control={form.control}
+                name="acceptTerms"
+                render={({ field }) => (
+                  <FormItem>
+                   <div className="flex gap-2 items-center">
+                    
+                    <FormControl>
+                      <Checkbox 
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        
+                      />
+                    </FormControl>
+                    <FormLabel>I accept the terms and conditions</FormLabel>
+                   </div>
+                   {/* form description */}
+                    <FormDescription>
+                      By checking this box, you agree to our terms and conditions.
+                      <Link href={"#"}>terms and conditions</Link>
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               <Button type="submit">signup</Button>
             </form>
           </Form>
@@ -274,7 +313,9 @@ export default function SignupPage() {
         <CardFooter className="justify-between">
           <small>Already have an account ?</small>
           <Button asChild variant={"outline"} size={"sm"}>
-            <Link href={"/login"}>login</Link>
+            <Link href={"/login"}
+            className="text-primary hover:underline " 
+            >login</Link>
           </Button>
         </CardFooter>
       </Card>

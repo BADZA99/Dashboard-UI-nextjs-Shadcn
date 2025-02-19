@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChartBar } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -22,6 +23,7 @@ const formSchema = z.object({
     password: z.string(),
 });
 export default function LoginPage() {
+    const router=useRouter();
 
     const form  =useForm<z.infer<typeof formSchema>>({
         resolver:zodResolver(formSchema),
@@ -31,8 +33,10 @@ export default function LoginPage() {
         }
     });
 
-    const handleSubmit =()=>{
+    const handleSubmit =(data:z.infer<typeof formSchema>)=>{
+        console.log(data);
         console.log("successss");
+        router.push("/dashboard");
     };
   return (
     <>
