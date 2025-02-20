@@ -1,11 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import React from "react";
+import EmployeesStats from "./components/employess-stats";
 
 export default function DashboardPage() {
   return (
     <Tabs defaultValue="Players">
-      <TabsList>
+      <TabsList className="mb-4">
         <TabsTrigger value="Players">Players stats</TabsTrigger>
 
         <TabsTrigger value="Employes">Employes stats</TabsTrigger>
@@ -15,7 +16,7 @@ export default function DashboardPage() {
         <div>Players</div>
       </TabsContent>
       <TabsContent value="Employes">
-        <div>Employes</div>
+        <EmployeesStats />
       </TabsContent>
     </Tabs>
   );
