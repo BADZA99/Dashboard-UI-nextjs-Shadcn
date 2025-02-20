@@ -1,7 +1,7 @@
 import React from 'react'
 import MenuTitle from './menu-title';
 import MenuItem from './MenuItem';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Link from 'next/link';
 import LightDarkToggle from '@/components/light-dark-toggle';
 
@@ -24,12 +24,7 @@ export default function MainMenu() {
            <AvatarFallback
              className="bg-pink-300 dark:bg-pink-800 "
            >PA</AvatarFallback>
-           <AvatarImage src={"https://avatars.githubusercontent.com/u/13398152?v=4"} />
           
-       
-
-
-
         </Avatar>
         {/* logout link */}
         <Link href={"/login"} className="text-primary hover:underline">
