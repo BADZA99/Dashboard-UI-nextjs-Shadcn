@@ -3,6 +3,8 @@ import { CardContent } from "../../../../components/ui/card";
 import {
   LaptopIcon,
 
+  PieChartIcon,
+
   StarIcon,
 
   UserIcon,
@@ -15,6 +17,8 @@ import rl from "@/public/images/rl.jpg";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
+import TreamDistributionChart from "./TreamDistributionChart";
+import SupportTicket from "./SupportTicket";
 
 const teamLeaders = [
   {
@@ -85,46 +89,49 @@ export default function PlayersStats() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base flex justify-between items-center">
-                <span>teams leaders</span>
-                <StarIcon className=" text-yellow-500" />
-                </CardTitle>
+              <span>teams leaders</span>
+              <StarIcon className=" text-yellow-500" />
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex  flex-wrap gap-2">
             {teamLeaders.map((teamLeader) => (
-         <TooltipProvider
-         key={teamLeader.firstName}
-         >
-            <Tooltip>
-                <TooltipTrigger asChild>
+              <TooltipProvider key={teamLeader.firstName}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
                     <Avatar>
-                        {!!teamLeader.avatar && <Image src={teamLeader.avatar} alt={teamLeader.firstName} width={40} height={40} />}
-                        <AvatarFallback>{teamLeader.firstName[0]}
-                            {teamLeader.lastName[0]}
-                        </AvatarFallback>
+                      {!!teamLeader.avatar && (
+                        <Image
+                          src={teamLeader.avatar}
+                          alt={teamLeader.firstName}
+                          width={40}
+                          height={40}
+                        />
+                      )}
+                      <AvatarFallback>
+                        {teamLeader.firstName[0]}
+                        {teamLeader.lastName[0]}
+                      </AvatarFallback>
                     </Avatar>
-
-                </TooltipTrigger>
-                <TooltipContent
-                    className="bg-background text-foreground rounded-md p-2 shadow-md"
-                >
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-background text-foreground rounded-md p-2 shadow-md">
                     {teamLeader.firstName} {teamLeader.lastName}
-                </TooltipContent>
-            </Tooltip>
-         </TooltipProvider>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             ))}
-            
           </CardContent>
-        
         </Card>
         <Card className=" ">
           {" "}
           <CardHeader className="pb-2">
-            <CardTitle className="text-base">teams distribution</CardTitle>
+              <CardTitle className="text-base flex justify-between items-center">
+                <span>teams distribution</span>
+                <PieChartIcon />
+              </CardTitle>
           </CardHeader>
           <CardContent className="flex gap-2 items-center ">
-         
+            <TreamDistributionChart />
           </CardContent>
-        
         </Card>
       </div>
       {/* card for bar chart */}
@@ -136,7 +143,7 @@ export default function PlayersStats() {
           </CardTitle>
         </CardHeader>
         <CardContent className="pl-0">
-   teams line chart
+            <SupportTicket />
         </CardContent>
       </Card>
     </>

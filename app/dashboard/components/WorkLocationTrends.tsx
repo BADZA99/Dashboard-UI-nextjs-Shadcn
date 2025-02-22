@@ -84,6 +84,7 @@ export default function WorkLocationTrends() {
             }
 
         }} 
+        
         labelClassName='font-bold'
         wrapperClassName="dark:!bg-black rounded-md dark:!border-border" />
         <Legend
