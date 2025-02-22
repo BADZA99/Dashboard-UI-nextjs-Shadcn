@@ -4,9 +4,10 @@ import MenuItem from './MenuItem';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import Link from 'next/link';
 import LightDarkToggle from '@/components/light-dark-toggle';
+import {cn} from "@/lib/utils";
 
-export default function MainMenu() {
-  return <nav className="bg-muted overflow-auto p-4 flex flex-col">
+export default function MainMenu({classname}:{classname?:string}) {
+  return <nav className={cn("bg-muted overflow-auto p-4 flex flex-col",classname)}>
     <header className="border-b dark:border-b-black border-b-zinc-300 pb-4">
         <MenuTitle />
     </header>
