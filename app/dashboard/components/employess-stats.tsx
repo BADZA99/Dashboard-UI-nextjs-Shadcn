@@ -1,12 +1,15 @@
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CardContent } from "../../../components/ui/card";
-import { AlertTriangleIcon, BadgeCheckIcon, UserIcon, UserRoundXIcon } from "lucide-react";
+import { AlertTriangleIcon, BadgeCheckIcon, PartyPopperIcon, UserIcon, UserRoundXIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Image from "next/image";
+import cm from '@/public/images/cm.jpg';
 
 export default function EmployesStats() {
   const totalEmployees= 100;
-  const activeEmployees = 87;
+  const activeEmployees = 98;
   const employeesActivePercentage = (
     activeEmployees / totalEmployees * 100
   );
@@ -59,11 +62,23 @@ export default function EmployesStats() {
           </span>
         </CardFooter>
       </Card>
-      <Card className="border-pink-500">
+      <Card className="border-pink-500 flex flex-col ">
         {" "}
         <CardHeader className="pb-2">
           <CardTitle className="text-base">Employees</CardTitle>
         </CardHeader>
+        <CardContent className="flex gap-2 items-center ">
+          <Avatar>
+            <Image src={cm} alt="Avatar" width={40} height={40} />
+            <AvatarFallback>OM</AvatarFallback>
+          </Avatar>
+          <span className="text-2xl">Omar</span>
+        </CardContent>
+
+        <CardFooter className="flex gap-2 items-center text-sm text-muted-foreground mt-auto">
+          <PartyPopperIcon className="w-5 h-5" />
+          <span>Congratulations Omar</span>
+        </CardFooter>
       </Card>
     </div>
   );
