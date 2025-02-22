@@ -1,6 +1,6 @@
 'use client';
 
-import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 const data = [
   {
@@ -67,14 +67,39 @@ const data = [
 
 
 export default function WorkLocationTrends() {
-  return <ResponsiveContainer height={350} width="100%">
-    <BarChart data={data}>
-        <XAxis dataKey="name" stroke='#888888' fontSize={12} />
-        <YAxis stroke='#888888' fontSize={12} />
-        <Tooltip />
+  return (
+    <ResponsiveContainer height={350} width="100%">
+      {/* [&_.recharts-tootltip-cursor]:fill-zinc-200  pour que le curseur de la tooltip soit blanc */}
+      <BarChart
+        data={data}
+        className="[&_.recharts-tootltip-cursor]:fill-zinc-200 dark:[&_.recharts-tootltip-cursor]:fill-zinc-800"
+      >
+        <XAxis dataKey="name" stroke="#888888" fontSize={12} />
+        <YAxis stroke="#888888" fontSize={12} />
+        <Tooltip separator=': ' formatter={(value,namee)=>{
+            if(namee==='office'){
+                return [value,'work from office'];
+            }else if(namee==='wfh'){
+                return [value,'work from home'];
+            }
+
+        }} 
+        labelClassName='font-bold'
+        wrapperClassName="dark:!bg-black rounded-md dark:!border-border" />
+        <Legend
+          iconType="circle"
+          formatter={(value) => {
+            if (value === "office") {
+              return <div className="text-sm ">work from office</div>;
+            } else if (value === "wfh") {
+              return <div>work from home</div>;
+            }
+          }}
+        />
         {/* meme stackid pour que les barres ne s'affichent pas sur le même niveau(colonne)*/}
-       <Bar dataKey="office" stackId="1" fill="#ec4899" />
-       <Bar dataKey="wfh" stackId="1" fill="#6b7280" radius={[4, 4, 0, 0]} />
-    </BarChart>
-  </ResponsiveContainer>;
+        <Bar dataKey="office" stackId="1" fill="#ec4899" />
+        <Bar dataKey="wfh" stackId="1" fill="#6b7280" radius={[4, 4, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
 }
