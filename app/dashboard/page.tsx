@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import React from "react";
-import EmployeesStats from "./components/employess-stats";
+import EmployeesStats from "./components/employees/employess-stats";
 
 export default function DashboardPage() {
   return (
