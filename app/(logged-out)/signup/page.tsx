@@ -190,7 +190,6 @@ export default function SignupPage() {
                         <FormControl>
                           <Input
                             type="number"
-                            value={field.value ?? ""}
                             placeholder="number of employees"
                             {...field}
                           />
