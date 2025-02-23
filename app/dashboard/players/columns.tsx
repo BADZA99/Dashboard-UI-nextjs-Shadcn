@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
@@ -17,8 +18,10 @@ export const columns: ColumnDef<Player>[] = [
   {
     accessorKey: "avatar",
     header: "Avatar",
+    // cell pour personnaliser la cellule
     cell: ({ row }) => (
       <Image
+      className="rounded-full"
         src={row.original.avatar}
         alt={`${row.original.firstName} ${row.original.lastName}`}
         width={50}
@@ -41,6 +44,8 @@ export const columns: ColumnDef<Player>[] = [
   {
     accessorKey: "isTeamLeader",
     header: "Team Leader",
-    cell: ({ row }) => (row.original.isTeamLeader ? "Yes" : "No"),
+    cell: ({ row }) => (row.original.isTeamLeader ? (<Badge variant='success'>
+team leader
+    </Badge>) : "No"),
   },
 ];
