@@ -7,8 +7,8 @@ import LightDarkToggle from '@/components/light-dark-toggle';
 import {cn} from "@/lib/utils";
 
 export default function MainMenu({classname}:{classname?:string}) {
-  return <nav className={cn("bg-muted overflow-auto p-4 flex flex-col",classname)}>
-    <header className="border-b dark:border-b-black border-b-zinc-300 pb-4">
+  return <nav className={cn("md:bg-muted overflow-auto p-4 flex flex-col",classname)}>
+    <header className="hidden md:blockborder-b dark:border-b-black border-b-zinc-300 pb-4">
         <MenuTitle />
     </header>
     {/* menu items */}
