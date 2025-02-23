@@ -5,8 +5,9 @@ import { Drawer as DrawerPrimitive } from "vaul"
 
 import { cn } from "@/lib/utils"
 
-const DrawerContext = React.createContext<{
+export const DrawerContext = React.createContext<{
   direction?: 'top' | 'right' | 'bottom' | 'left',
+  onClose?: () => void
 }>({})
 
 
@@ -15,7 +16,7 @@ const Drawer = ({
   shouldScaleBackground = true,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerContext.Provider value={{ direction: props.direction }}>
+  <DrawerContext.Provider value={{ direction: props.direction, onClose: props.onClose }}>
   <DrawerPrimitive.Root
     shouldScaleBackground={shouldScaleBackground}
     {...props}

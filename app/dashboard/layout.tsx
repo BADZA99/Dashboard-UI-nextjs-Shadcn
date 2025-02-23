@@ -8,6 +8,7 @@ import { useMediaQuery } from '@/hooks/use-media-query';
 
 export default function DashboardLayout({children}:{children:React.ReactNode}) {
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const [isMobileOpen, setIsMobileOpen] = React.useState(false);
   return (
     <div className="md:grid md:grid-cols-[250px_1fr] h-screen">
          {/* dashboard */}
@@ -15,7 +16,11 @@ export default function DashboardLayout({children}:{children:React.ReactNode}) {
    {/* mobile menu */}
      { !isDesktop && (<div className="p-4 flex justify-between md:hidden sticky top-0 left-0 bg-background border-b border-border">
         <MenuTitle />
-        <Drawer direction='right'>
+        <Drawer direction='right'
+          onOpenChange={(open) => setIsMobileOpen(open)}
+          open={isMobileOpen}
+          onClose={() => setIsMobileOpen(false)}
+        >
           <DrawerTrigger>
             <MenuIcon/>
           </DrawerTrigger>
