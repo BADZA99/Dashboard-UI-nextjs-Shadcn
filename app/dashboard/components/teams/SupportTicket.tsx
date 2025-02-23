@@ -4,6 +4,7 @@
 import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
 import {
   CartesianGrid,
+  Legend,
   Line,
   LineChart,
   ResponsiveContainer,
@@ -100,7 +101,7 @@ export default function SupportTicket() {
         <Line type="monotone" dataKey="alpha" stroke="#3b82f6" />
         <Line type="monotone" dataKey="canary" stroke="#f97316" />
 
-        <legend
+        <Legend
           formatter={(value) => <span className="capitalize">{value}</span>}
         />
       </LineChart>
