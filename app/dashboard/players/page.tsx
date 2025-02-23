@@ -47,6 +47,15 @@ export default async function PlayersPage() {
       isTeamLeader: true,
       avatar: "/images/cm.jpg",
     },
+    {
+      id: 5,
+      firstName: "Bob",
+      lastName: "Brown",
+      teamName: "Team C",
+      isTeamLeader: true,
+      avatar: "/images/cm.jpg",
+      
+    }
   ];
 
   return (
