@@ -1,3 +1,11 @@
+import { Card, CardHeader, CardTitle ,
+  CardContent,
+
+
+} from "@/components/ui/card";
+import { DataTable } from "@/components/ui/DataTable";
+import { columns, type Player } from "./columns";
+
 export default async function PlayersPage() {
   // Fonction pour simuler un délai
   const delay = (ms: number) =>
@@ -6,7 +14,7 @@ export default async function PlayersPage() {
   // Attendre 5 secondes
   await delay(5000);
 
-  const players = [
+  const players : Player [] = [
     {
       id: 1,
       firstName: "John",
@@ -21,7 +29,7 @@ export default async function PlayersPage() {
       lastName: "Smith",
       teamName: "Team B",
       isTeamLeader: false,
-      avatar: "/images/cm.jpg",
+      avatar: "/images/tf.jpg",
     },
     {
       id: 3,
@@ -29,7 +37,7 @@ export default async function PlayersPage() {
       lastName: "Johnson",
       teamName: "Team A",
       isTeamLeader: false,
-      avatar: "/images/cm.jpg",
+      avatar: "/images/rl.jpg",
     },
     {
       id: 4,
@@ -42,8 +50,17 @@ export default async function PlayersPage() {
   ];
 
   return (
-    <div>
-     
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>Loading</CardTitle>
+      </CardHeader>
+
+      <CardContent className="">
+      <DataTable
+      data={players}
+      columns={columns}
+       />
+      </CardContent>
+    </Card>
   );
 }
